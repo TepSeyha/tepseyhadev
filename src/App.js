@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import Cursor from './components/Cursor';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import StatusBar from './components/StatusBar';
+import './styles/global.css';
 
-function App() {
+export default function App() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add('active');
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Cursor />
+      <Navbar />
+      <StatusBar />
+      <Hero />
+      <About />
+      <Skills />
+      <Experience />
+      <Projects />
+      <Contact />
+      <Footer />
+    </>
   );
 }
-
-export default App;
